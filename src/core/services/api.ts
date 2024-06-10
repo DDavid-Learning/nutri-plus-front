@@ -1,5 +1,5 @@
 import axios from "axios"
-import { getUserLocalStorage } from "../context/AuthProvider/utils"
+import { getUserLocalStorage } from "../utils/localStorage"
 
 export const Api = axios.create({ baseURL: "http://localhost:3333" })
 
@@ -12,7 +12,5 @@ Api.interceptors.request.use(
     },
     (error) => {
         return console.log("erro de token");
-        
-        
     }
 )

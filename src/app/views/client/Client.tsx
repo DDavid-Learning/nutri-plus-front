@@ -1,8 +1,10 @@
-import React from 'react'
+
 
 const Client = () => {
   return (
-    <div>fodase login</div>
+    <div>
+      <h1>teste</h1>
+    </div>
   )
 }
 

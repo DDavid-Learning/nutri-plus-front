@@ -2,7 +2,8 @@ import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Validations } from '../../utils/Validations';
+import { Validations } from '../../../core/utils/Validations';
+
 
 interface ILogin {
   cpf: string;

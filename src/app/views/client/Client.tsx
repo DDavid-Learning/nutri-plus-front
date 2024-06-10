@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Profile = () => {
+const Client = () => {
   return (
     <div>fodase login</div>
   )
 }
 
-export default Profile
+export default Client

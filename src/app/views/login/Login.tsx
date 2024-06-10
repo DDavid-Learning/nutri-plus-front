@@ -1,22 +1,36 @@
 import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-
+import { useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Validations } from '../../../core/utils/Validations';
+import { useAuth } from '../../../core/context/AuthProvider/useAuth';
+import { error } from 'console';
 
 
 interface ILogin {
-  cpf: string;
-  password: string;
+  crn: string;
+  senha: string;
 }
 
 
 
 const Login = () => {
+  const navigate = useNavigate();
+  const auth = useAuth()
+
+  async function handleLoginSubmit (values: {crn: string, senha: string}) {
+
+      await auth.authenticate(values.crn, values.senha).then((resp) =>{
+        navigate("/clientes")
+      }).catch((error) => {
+        console.log(error)
+      })
+
+  }
   
   const initialValues: ILogin = {
-    cpf: '',
-    password: '',
+    crn: '',
+    senha: '',
   };
 
   return (
@@ -27,20 +41,22 @@ const Login = () => {
         validationSchema={Validations.SignupSchema}
         onSubmit={(values: ILogin, { setSubmitting }) => {
           console.log(values);
+          
+          handleLoginSubmit(values)
           setSubmitting(false);
         }}
       >
         {({ isSubmitting }) => (
           <Form>
             <div className="form-group">
-              <label htmlFor="cpf">CPF</label>
-              <Field name="cpf" type="text" className="form-control" />
-              <ErrorMessage name="cpf" component="div" className="text-danger" />
+              <label htmlFor="crn">CRN</label>
+              <Field name="crn" type="text" className="form-control" />
+              <ErrorMessage name="crn" component="div" className="text-danger" />
             </div>
             <div className="form-group">
-              <label htmlFor="password">Senha</label>
-              <Field name="password" type="password" className="form-control" />
-              <ErrorMessage name="password" component="div" className="text-danger" />
+              <label htmlFor="senha">Senha</label>
+              <Field name="senha" type="senha" className="form-control" />
+              <ErrorMessage name="senha" component="div" className="text-danger" />
             </div>
 
             <button type="submit" className="btn btn-primary" disabled={isSubmitting}>

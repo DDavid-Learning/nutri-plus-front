@@ -2,26 +2,33 @@ import { Api } from "../../services/api"
 import { IUser } from "./types";
 
 export function setUserLocalStorage(user: IUser | null) {
-    localStorage.setItem('user', JSON.stringify(user));
+    if (user) {
+        localStorage.setItem('user', JSON.stringify(user));
+    } else {
+        localStorage.removeItem('user');
+    }
 }
 
 export function getUserLocalStorage() {
     const json = localStorage.getItem('user');
-    
     if (!json) {
-        return null
+        return null;
     }
-
-    const user = JSON.parse(json)
-
-    return user ?? null;
+    try {
+        const user = JSON.parse(json);
+        return user ?? null;
+    } catch (error) {
+        console.error("Error parsing user from localStorage", error);
+        return null;
+    }
 }
 
-export async function LoginRequest(login: string, password: string) {
+export async function LoginRequest(crn: string, senha: string) {
     try {
-        const request = await Api.post('login', { login, password })
-        return request.data;
+        const response = await Api.post('/login', { crn: crn, senha: senha });
+        return response.data;
     } catch (error) {
-        return null
+        console.error("Login request error:", error);
+        throw error;
     }
 }

@@ -1,12 +1,12 @@
 
 
 export interface IUser {
-    login?: string;
+    crn?: string;
     token?: string;
 }
 
 export interface IContext extends IUser {
-    authenticate : (login: string, password: string) => Promise<void>;
+    authenticate : (crn: string, senha: string) => Promise<void>;
     logout: () => void;
 }
 

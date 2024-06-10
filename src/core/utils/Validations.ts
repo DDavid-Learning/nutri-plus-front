@@ -1,9 +1,9 @@
 import * as Yup from 'yup';
 
 const SignupSchema = Yup.object().shape({
-    cpf: Yup.string()
+    crn: Yup.string()
         .required('cpf obrigatório'),
-    password: Yup.string()
+    senha: Yup.string()
         .min(8, 'Senha muito curta, mínimo 8 caracteres')
         .required('Campo obrigatório')
 });

@@ -5,7 +5,8 @@ import { LoginRequest, getUserLocalStorage, setUserLocalStorage } from "./utils"
 export const AuthContext = createContext<IContext>({} as IContext);
 
 export const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
-    const [user, setUser] = useState<IUser | null>(null);
+    const persistUser = getUserLocalStorage();
+    const [user, setUser] = useState<IUser | null>(persistUser);
 
     useEffect(() => {
         const user = getUserLocalStorage();
@@ -14,11 +15,15 @@ export const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
         }
     }, []);
 
-    async function authenticate(login: string, password: string) {
-        const response = await LoginRequest(login, password);
-        const payload = { token: response.token, login };
-        setUser(payload);
-        setUserLocalStorage(payload);
+    async function authenticate(crn: string, senha: string) {
+        return await LoginRequest(crn, senha).then((resp) => {
+            const payload = { token: resp.token, crn: crn };
+            setUser(payload);
+            setUserLocalStorage(payload)
+        }).catch((error) => {
+            console.log(error)
+        })
+
     }
 
     function logout() {

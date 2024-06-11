@@ -1,0 +1,11 @@
+.login{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    margin: 10rem;
+    overflow-x: hidden;
+    background-color: aliceblue;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}

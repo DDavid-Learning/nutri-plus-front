@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { useAuth } from '../context/AuthProvider/useAuth'
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
+import SideBar from '../../app/components/sideBar/sideBar';
 
-export const ProtectedRoutes = ({ children }: { children: JSX.Element }) => {
+export const ProtectedRoutes = () => {
     const auth = useAuth()
 
     useEffect(() => {
@@ -13,6 +14,13 @@ export const ProtectedRoutes = ({ children }: { children: JSX.Element }) => {
     if (!auth.token) {
         return <Navigate to="/login" />;
     }
-    return children;
+    return (
+        <div className='app-content'>
+            <SideBar />
+            <div className='content'>
+                <Outlet />
+            </div>
+        </div>
+    );
 }
 

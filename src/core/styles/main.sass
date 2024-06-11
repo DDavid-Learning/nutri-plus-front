@@ -1,2 +1,14 @@
-h1
-    color: red
+@use 'variables'
+
+*
+    padding: 0
+    margin: 0
+    font-family: variables.$font-stack
+
+
+body
+    background: variables.$bg-color-gray
+    overflow-x: hidden
+
+a, svg
+    transition: .4s

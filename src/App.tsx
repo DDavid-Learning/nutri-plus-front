@@ -3,8 +3,10 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './core/context/AuthProvider/authContext';
 import { ProtectedRoutes } from './core/ProtectedRoutes/ProtectedRoutes';
-import Client from './app/views/client/Client';
+import DashBoard from './app/views/dashBoard/dashBoard';
 import Login from './app/views/login/Login';
+import Clients from './app/views/client/clients';
+
 
 
 function App() {
@@ -12,7 +14,11 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          <Route path="/clientes" element={<ProtectedRoutes><Client /></ProtectedRoutes>} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/dashboard" element={<DashBoard />} />
+            <Route path="/clientes" element={<Clients />} />
+          </Route>
+
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>

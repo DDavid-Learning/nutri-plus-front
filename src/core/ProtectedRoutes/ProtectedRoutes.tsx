@@ -15,12 +15,11 @@ export const ProtectedRoutes = () => {
         return <Navigate to="/login" />;
     }
     return (
-        <div className='app-content'>
+        <div className='app-container'>
             <SideBar />
-            <div className='content'>
-                <Outlet />
-            </div>
+            <Outlet />
         </div>
+
     );
 }
 

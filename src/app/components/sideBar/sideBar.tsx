@@ -4,47 +4,11 @@ import { BiHomeAlt, BiBarChartAlt2, BiBell, BiLogOut, BiChevronRight } from 'rea
 
 
 const SideBar = () => {
-    useEffect(() => {
-        const body = document.querySelector('body');
-        if (!body) return;
-
-        const sidebar = body.querySelector('nav');
-        const toggle = body.querySelector(".toggle");
-        const searchBtn = body.querySelector(".search-box");
-        const modeSwitch = body.querySelector(".toggle-switch");
-        const modeText = body.querySelector(".mode-text") as HTMLElement;
-
-        const handleToggleClick = () => {
-            sidebar?.classList.toggle("close");
-        };
-
-        const handleSearchClick = () => {
-            sidebar?.classList.remove("close");
-        };
-
-        const handleModeSwitchClick = () => {
-            body.classList.toggle("dark");
-            if (body.classList.contains("dark")) {
-                modeText.innerText = "Light mode";
-            } else {
-                modeText.innerText = "Dark mode";
-            }
-        };
-
-        toggle?.addEventListener("click", handleToggleClick);
-        searchBtn?.addEventListener("click", handleSearchClick);
-        modeSwitch?.addEventListener("click", handleModeSwitchClick);
-
-        return () => {
-            toggle?.removeEventListener("click", handleToggleClick);
-            searchBtn?.removeEventListener("click", handleSearchClick);
-            modeSwitch?.removeEventListener("click", handleModeSwitchClick);
-        };
-    }, []);
+ 
 
     return (
         <div>
-            <nav className="sidebar close">
+            <nav className="sidebar">
                 <header>
                     <div className="image-text">
                         <span className="image">
@@ -55,7 +19,6 @@ const SideBar = () => {
                             <span className="profession">Saúde e nutrição</span>
                         </div>
                     </div>
-                    <BiChevronRight className="toggle" />
                 </header>
                 <div className="menu-bar">
                     <div className="menu">

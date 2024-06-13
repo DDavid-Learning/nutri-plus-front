@@ -92,23 +92,10 @@
         }
 
         .btn-primary {
-          padding: 0.5rem 1rem;
-          font-size: 1rem;
-          border-radius: 0.25rem;
-          border-color: #97E36E;
-          background-color: #97E36E;
           width: 50%;
           margin-top: 20px;
-
-
-          &:disabled {
-            opacity: 0.65;
-          }
         }
       }
-
     }
-
-
   }
 }

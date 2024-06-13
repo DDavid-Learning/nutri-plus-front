@@ -1,4 +1,4 @@
-import { Api } from "../services/api"
+import { Api } from "../services/api/api"
 import { IUser } from "../models/modelAuthContext";
 
 export function setUserLocalStorage(user: IUser | null) {
@@ -7,6 +7,10 @@ export function setUserLocalStorage(user: IUser | null) {
     } else {
         localStorage.removeItem('user');
     }
+}
+
+export function cleanLocalStorage() {
+    localStorage.clear()
 }
 
 export function getUserLocalStorage() {

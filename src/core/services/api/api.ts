@@ -1,5 +1,5 @@
 import axios from "axios"
-import { getUserLocalStorage } from "../utils/localStorage"
+import { getUserLocalStorage } from "../../utils/localStorage"
 
 export const Api = axios.create({ baseURL: "http://localhost:3333" })
 

@@ -37,6 +37,8 @@ const Login = () => {
       <div className="container-login">
         <Formik
           initialValues={initialValues}
+          validateOnBlur={false}
+          validateOnChange={false}
           validationSchema={Validations.SignupSchema}
           onSubmit={(values: ILogin, { setSubmitting }) => {
             console.log(values);

@@ -6,6 +6,7 @@ import { ProtectedRoutes } from './core/ProtectedRoutes/ProtectedRoutes';
 import DashBoard from './app/views/dashBoard/dashBoard';
 import Login from './app/views/login/Login';
 import Clients from './app/views/client/clients';
+import './core/styles/content.sass'
 
 
 

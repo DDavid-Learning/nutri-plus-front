@@ -34,6 +34,15 @@
     width: 88px;
 }
 
+.sidebar li a.active {
+    background-color: #186518;
+}
+
+.sidebar li a.active .icon,
+.sidebar li a.active .text {
+    color: #fff;
+}
+
 /* ===== Reusable code - Here ===== */
 .sidebar li {
     height: 50px;
@@ -141,25 +150,6 @@ header .image-text .profession {
     margin-top: 40px;
 }
 
-.sidebar li.search-box {
-    border-radius: 6px;
-    background-color: var(--primary-color-light);
-    cursor: pointer;
-    transition: var(--tran-05);
-}
-
-.sidebar li.search-box input {
-    height: 100%;
-    width: 100%;
-    outline: none;
-    border: none;
-    background-color: var(--primary-color-light);
-    color: var(--text-color);
-    border-radius: 6px;
-    font-size: 17px;
-    font-weight: 500;
-    transition: var(--tran-05);
-}
 
 .sidebar li a {
     list-style: none;
@@ -220,13 +210,6 @@ body.dark .sidebar li a:hover .text {
     opacity: 0;
 }
 
-body.dark .mode .sun-moon i.sun {
-    opacity: 1;
-}
-
-body.dark .mode .sun-moon i.moon {
-    opacity: 0;
-}
 
 .menu-bar .bottom-content .toggle-switch {
     position: absolute;
@@ -262,9 +245,7 @@ body.dark .mode .sun-moon i.moon {
     transition: var(--tran-04);
 }
 
-body.dark .switch::before {
-    left: 20px;
-}
+
 
 .home {
     position: absolute;

@@ -1,0 +1,25 @@
+/* Clients.css */
+.content-container-table{
+  width: 83svw;
+  height: 95svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #f6f6f6;
+  margin-left: 200px;
+  border: 1px solid #ccc; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.title {
+  flex: 1;
+  justify-content: flex-start;
+  width: 100%;
+  margin-left: 15px;
+  padding: 1rem;
+}
+
+.table {
+  flex: 10;
+}

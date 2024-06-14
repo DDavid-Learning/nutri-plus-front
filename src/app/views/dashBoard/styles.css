@@ -11,11 +11,12 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
+
 .total-container {
     background-color: #fff;
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
     border: 1px solid #ccc; 
-    border-radius: 8px;
+    border-radius: 15px;
     padding: 1.2rem;
     height: 45svh;
     display: flex;
@@ -28,6 +29,7 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
+    margin-top: 10px;
 }
 
 .upSide {

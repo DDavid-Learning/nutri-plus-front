@@ -1,13 +1,29 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState, ReactNode } from "react";
 import { IAuthProvider, IContext, IUser } from "../../models/modelAuthContext";
 import { getUserLocalStorage, setUserLocalStorage } from "../../utils/localStorage";
 import { LoginRequest } from "../../services/userService/userServiceAuth";
 
-export const AuthContext = createContext<IContext>({} as IContext);
+interface IDialogContext {
+    isLogoutDialogOpen: boolean;
+    openLogoutDialog: () => void;
+    closeLogoutDialog: () => void;
+}
+
+const defaultDialogContext: IDialogContext = {
+    isLogoutDialogOpen: false,
+    openLogoutDialog: () => {},
+    closeLogoutDialog: () => {}
+};
+
+export const AuthContext = createContext<IContext & IDialogContext>({
+    ...defaultDialogContext,
+    ...{} as IContext
+});
 
 export const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
     const persistUser = getUserLocalStorage();
     const [user, setUser] = useState<IUser | null>(persistUser);
+    const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
 
     useEffect(() => {
         const user = getUserLocalStorage();
@@ -17,14 +33,15 @@ export const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
     }, []);
 
     async function authenticate(crn: string, senha: string) {
-        return await LoginRequest(crn, senha).then((resp) => {
-            const payload = { token: resp.token, crn: crn };
-            setUser(payload);
-            setUserLocalStorage(payload)
-        }).catch((error) => {
-            console.log(error)
-        })
-
+        return await LoginRequest(crn, senha)
+            .then((resp) => {
+                const payload = { token: resp.token, crn: crn };
+                setUser(payload);
+                setUserLocalStorage(payload);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     function logout() {
@@ -32,8 +49,25 @@ export const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
         setUserLocalStorage(null);
     }
 
+    function openLogoutDialog() {
+        setIsLogoutDialogOpen(true);
+    }
+
+    function closeLogoutDialog() {
+        setIsLogoutDialogOpen(false);
+    }
+
     return (
-        <AuthContext.Provider value={{ ...user, authenticate, logout }}>
+        <AuthContext.Provider
+            value={{
+                ...user,
+                authenticate,
+                logout,
+                isLogoutDialogOpen,
+                openLogoutDialog,
+                closeLogoutDialog
+            }}
+        >
             {children}
         </AuthContext.Provider>
     );

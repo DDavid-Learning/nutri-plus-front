@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+// SideBar.tsx
+import React, { useContext } from 'react';
+import { BiHomeAlt, BiBarChartAlt2, BiBell, BiLogOut } from 'react-icons/bi';
 import './side.css';
-import { BiHomeAlt, BiBarChartAlt2, BiBell, BiLogOut, BiChevronRight } from 'react-icons/bi';
-
+import { useAuth } from '../../../core/context/AuthProvider/useAuth';
 
 const SideBar = () => {
- 
+    const { openLogoutDialog } = useAuth();
 
     return (
         <div>
@@ -22,29 +23,29 @@ const SideBar = () => {
                 </header>
                 <div className="menu-bar">
                     <div className="menu">
-                            <li className="nav-link">
-                                <a href="/dashboard">
-                                    <BiHomeAlt className='icon' />
-                                    <span className="text nav-text">Dashboard</span>
-                                </a>
-                            </li>
-                            <li className="nav-link">
-                                <a href="/clientes">
-                                    <BiBarChartAlt2 className='icon' />
-                                    <span className="text nav-text">Clientes</span>
-                                </a>
-                            </li>
-                            <li className="nav-link">
-                                <a href="/consultas">
-                                    <BiBell className='icon' />
-                                    <span className="text nav-text">Consultas</span>
-                                </a>
-                            </li>
+                        <li className="nav-link">
+                            <a href="/dashboard">
+                                <BiHomeAlt className="icon" />
+                                <span className="text nav-text">Dashboard</span>
+                            </a>
+                        </li>
+                        <li className="nav-link">
+                            <a href="/pacientes">
+                                <BiBarChartAlt2 className="icon" />
+                                <span className="text nav-text">Pacientes</span>
+                            </a>
+                        </li>
+                        <li className="nav-link">
+                            <a href="/consultas">
+                                <BiBell className="icon" />
+                                <span className="text nav-text">Consultas</span>
+                            </a>
+                        </li>
                     </div>
                     <div className="bottom-content">
-                        <li className="">
-                            <a href="#">
-                                <BiLogOut className='icon' />
+                        <li>
+                            <a href="#" onClick={openLogoutDialog}>
+                                <BiLogOut className="icon" />
                                 <span className="text nav-text">Logout</span>
                             </a>
                         </li>
@@ -52,7 +53,7 @@ const SideBar = () => {
                 </div>
             </nav>
         </div>
-    )
-}
+    );
+};
 
 export default SideBar;

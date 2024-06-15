@@ -1,8 +1,9 @@
 .content-container-register {
-    width: 90svw;
+    width: 85svw;
     height: 95svh;
     display: flex;
     overflow-y: auto;
+    overflow-x: hidden;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
@@ -11,6 +12,12 @@
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+.large-select {
+    padding: 1rem; 
+    width: 220px; 
+    height: 3rem; 
+  }
 
 .infos-row {
     display: flex;
@@ -23,21 +30,20 @@
     background-color: #88ff7a;
 }
 
-.title {
+.title-plano-alimentar {
     flex: 1;
     display: flex;
-    font-size: large;
+    font-size: larger;
     align-items: center;
     font-weight: bold;
     color: #5ee55e;
-    width: 200px;
 }
 
-.inputs {
+.inputs-plano-alimentar {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

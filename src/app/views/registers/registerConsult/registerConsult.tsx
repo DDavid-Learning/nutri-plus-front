@@ -32,7 +32,7 @@ const RegisterConsult = () => {
   }, [consultaData]);
 
   const handleRegisterSubmit = async (values: any) => {
-    const selectedPatient = patients.find((p:any) => p.nome === values.nome);
+    const selectedPatient = patients.find((p: any) => p.nome === values.nome);
     const pacientData = {
       ...values,
       ID_paciente: selectedPatient?.ID_paciente || values.ID_paciente,
@@ -44,8 +44,11 @@ const RegisterConsult = () => {
         data: values.data,
         tipo_pagamento: values.tipo_pagamento,
       },
-      planoAlimentar: consultaData.planoAlimentar,
-      refeicoes: consultaData.refeicoes, 
+      planoAlimentar: {
+        meta_calorica: parseInt(values.meta_calorica),
+        objetivo: values.objetivo,
+      },
+      refeicoes: consultaData.refeicoes,
       medidas: {
         biceps_esquerdo: parseFloat(values.biceps_esquerdo),
         biceps_direito: parseFloat(values.biceps_direito),
@@ -56,7 +59,7 @@ const RegisterConsult = () => {
       },
     });
     console.log(consultaData);
-    
+
     navigate('/registrarPlanoAlimentar')
   };
 
@@ -69,12 +72,10 @@ const RegisterConsult = () => {
       <Formik
         initialValues={{
           nome: '',
-          cpf: '',
-          email: '',
-          altura: '',
-          idade: '',
           ID_paciente: '',
           data: '',
+          meta_calorica: '',
+          objetivo: '',
           tipo_pagamento: '',
           biceps_esquerdo: '',
           biceps_direito: '',
@@ -94,7 +95,7 @@ const RegisterConsult = () => {
           <Form className="content-container-register">
             <div className='titles'>
               <div className="title">
-                Informações do Paciente
+                Informações Gerais
               </div>
               <div className="title">
                 Informações de Medidas
@@ -103,7 +104,7 @@ const RegisterConsult = () => {
             <div className="input-container">
               <div className="inputs">
                 <div className="form-floating mb-3">
-                  <Field as="select" name="nome" className="form-control" id="floatingNome" placeholder="Nome">
+                  <Field as="select" name="nome" className="form-control large-select" id="floatingNome" placeholder="Nome">
                     <option value="" label="Selecione um paciente" />
                     {patients.map((patient: any) => (
                       <option key={patient.ID_paciente} value={patient.nome} label={patient.nome} />
@@ -121,6 +122,16 @@ const RegisterConsult = () => {
                   <Field name="tipo_pagamento" type="text" className="form-control" id="floatingTipoPagamento" placeholder="Tipo de Pagamento" />
                   <label htmlFor="floatingTipoPagamento">Tipo de Pagamento</label>
                   <ErrorMessage name="tipo_pagamento" component="div" className="text-danger" />
+                </div>
+                <div className="form-floating mb-3">
+                  <Field name="meta_calorica" type="text" className="form-control" id="floatingMetaCalorica" placeholder="Meta Calórica" />
+                  <label htmlFor="floatingMetaCalorica">Meta Calórica</label>
+                  <ErrorMessage name="meta_calorica" component="div" className="text-danger" />
+                </div>
+                <div className="form-floating mb-3">
+                  <Field name="objetivo" type="text" className="form-control" id="floatingObjetivo" placeholder="Objetivo" />
+                  <label htmlFor="floatingObjetivo">Objetivo</label>
+                  <ErrorMessage name="objetivo" component="div" className="text-danger" />
                 </div>
               </div>
               <div className="inputs">

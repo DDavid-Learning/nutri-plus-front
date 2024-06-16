@@ -22,7 +22,6 @@ export function getUserLocalStorage() {
         const user = JSON.parse(json);
         return user ?? null;
     } catch (error) {
-        console.error("Error parsing user from localStorage", error);
         return null;
     }
 }

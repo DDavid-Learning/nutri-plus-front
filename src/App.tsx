@@ -25,10 +25,8 @@ function App() {
             <Route path="/consultas" element={<Consults />} />
             <Route path="/registrarConsultas" element={<RegisterConsult />} />
             <Route path="/registrarPacientes" element={<RegisterPacient />} />
-            <Route path="/registrarPlanoAlimentar" element={<RegisterPlanoAlimentar />} />
-
+            <Route path="/registrarRefeicoes" element={<RegisterPlanoAlimentar />} />
           </Route>
-
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>

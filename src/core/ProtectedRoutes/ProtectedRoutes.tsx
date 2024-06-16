@@ -7,9 +7,7 @@ import DefaultDialog from '../../app/components/dialog/defaultDialog';
 export const ProtectedRoutes = () => {
     const auth = useAuth()
     const { isLogoutDialogOpen, closeLogoutDialog, logout } = useAuth();
-    useEffect(() => {
-        console.log(auth.token)
-    }, [auth.token])
+
 
     const handleLogout = () => {
         <Navigate to="/login" />

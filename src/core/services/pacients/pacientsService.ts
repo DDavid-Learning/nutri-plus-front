@@ -16,12 +16,7 @@ export async function createPacient(pacient: TPacientRegister) {
     try {
         const response = await Api.post('/create/paciente', pacient);
         return response.data;
-    } catch (error: unknown) {
-        if (axios.isAxiosError(error)) {
-            if (error.response && error.response.data && error.response.data.message) {
-                return error.response.data.message;
-            }
-        }
-        return 'erro desconhecido';
+    } catch (error) {
+        throw error;
     }
 }

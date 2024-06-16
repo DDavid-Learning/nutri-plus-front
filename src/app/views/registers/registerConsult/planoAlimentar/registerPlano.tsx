@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { useConsultaContext } from '../../../../../core/context/AuthProvider/contextConsult/ConsultContext';
 import { createConsult } from '../../../../../core/services/consults/consultsService';
 import { TConsultRegister } from '../../../../../core/utils/types/types';
+import RegisterConsult from '../registerConsult';
+import { AxiosError } from 'axios';
+import Notification from '../../../../components/Notification/notification';
 
 const diasSemana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira'];
 
@@ -25,10 +28,16 @@ const RegisterPlanoAlimentar: React.FC = () => {
     const [selectedDay, setSelectedDay] = useState(diasSemana[0]);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const { consultaData } = useConsultaContext();
+
+    const handleNotificationClose = () => {
+        setErrorMessage(null);
+    };
 
     const handleRegisterSubmit = async (values: FormValues) => {
         setIsLoading(true);
+
         try {
             const newConsultaData: TConsultRegister = {
                 consulta: consultaData.consulta,
@@ -42,11 +51,16 @@ const RegisterPlanoAlimentar: React.FC = () => {
                 ),
                 medidas: consultaData.medidas,
             };
-            console.log(newConsultaData);
+
             await createConsult(newConsultaData);
             navigate('/dashboard');
         } catch (error) {
-            console.error('Erro ao criar consulta:', error);
+            if (error instanceof AxiosError) {
+                setErrorMessage(error.response?.data.message);
+            } else {
+                console.log("Ocorreu um erro inesperado");
+            }
+        } finally {
             setIsLoading(false);
         }
     };
@@ -68,6 +82,7 @@ const RegisterPlanoAlimentar: React.FC = () => {
             >
                 {({ values, isSubmitting, setFieldValue }) => (
                     <Form className="content-container-register">
+                        {errorMessage && <Notification message={errorMessage} type="error" onClose={handleNotificationClose} />}
                         <div className="title-plano-alimentar">Cadastro de Refeições</div>
                         <div className="input-container">
                             <div className="inputs-plano-alimentar">
@@ -108,8 +123,11 @@ const RegisterPlanoAlimentar: React.FC = () => {
                                 </FieldArray>
                             </div>
                         </div>
-                        <div className="button">
-                            <button type="submit" className="btn btn-secundary" disabled={isSubmitting}>
+                        <div className="button-consult">
+                            <button onClick={() => navigate('/registrarConsultas')} className="btn btn-secundary" disabled={isSubmitting || isLoading}>
+                                VOLTAR
+                            </button>
+                            <button type="submit" className="btn btn-secundary" disabled={isSubmitting || isLoading}>
                                 SALVAR
                             </button>
                         </div>

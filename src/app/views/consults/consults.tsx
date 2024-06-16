@@ -63,7 +63,11 @@ const Consults: React.FC = () => {
   return (
     <>
       {isLoading ? (
-        <h1>Carregando...</h1>
+        <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+          <div className="spinner-border text-success" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
       ) : (
         <div className="page-container">
           <div className="content-container-table">

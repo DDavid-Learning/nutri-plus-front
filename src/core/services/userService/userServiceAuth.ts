@@ -5,7 +5,6 @@ export async function LoginRequest(crn: string, senha: string) {
         const response = await Api.post('/login', { crn: crn, senha: senha });
         return response.data;
     } catch (error) {
-        console.error("Login request error:", error);
         throw error;
     }
 }

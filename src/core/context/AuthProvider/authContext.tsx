@@ -11,8 +11,8 @@ interface IDialogContext {
 
 const defaultDialogContext: IDialogContext = {
     isLogoutDialogOpen: false,
-    openLogoutDialog: () => {},
-    closeLogoutDialog: () => {}
+    openLogoutDialog: () => { },
+    closeLogoutDialog: () => { }
 };
 
 export const AuthContext = createContext<IContext & IDialogContext>({
@@ -33,15 +33,15 @@ export const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
     }, []);
 
     async function authenticate(crn: string, senha: string) {
-        return await LoginRequest(crn, senha)
-            .then((resp) => {
-                const payload = { token: resp.token, crn: crn };
-                setUser(payload);
-                setUserLocalStorage(payload);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        try {
+            const resp = await LoginRequest(crn, senha);
+            const payload = { token: resp.token, crn: crn };
+            setUser(payload);
+            setUserLocalStorage(payload);
+            return resp;
+        } catch (error) {
+            throw error;
+        }
     }
 
     function logout() {

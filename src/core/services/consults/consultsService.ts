@@ -27,12 +27,7 @@ export async function createConsult(createConsult: TConsultRegister) {
     try {
         const response = await Api.post('/create/consulta', createConsult);
         return response.data;
-    } catch (error: unknown) {
-        if (axios.isAxiosError(error)) {
-            if (error.response && error.response.data && error.response.data.message) {
-                return error.response.data.message;
-            }
-        }
-        return 'erro desconhecido';
+    } catch (error) {
+        throw error
     }
 }

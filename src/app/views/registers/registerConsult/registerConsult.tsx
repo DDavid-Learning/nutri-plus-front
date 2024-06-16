@@ -3,7 +3,9 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as Yup from 'yup';
 import './styles.css';
-import { createPacient, fecthPacient } from '../../../../core/services/pacients/pacientsService';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { fecthPacient } from '../../../../core/services/pacients/pacientsService';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useConsultaContext } from '../../../../core/context/AuthProvider/contextConsult/ConsultContext';
@@ -27,9 +29,6 @@ const RegisterConsult = () => {
     }
   }, [data]);
 
-  useEffect(() => {
-    console.log(consultaData);
-  }, [consultaData]);
 
   const handleRegisterSubmit = async (values: any) => {
     const selectedPatient = patients.find((p: any) => p.nome === values.nome);
@@ -58,13 +57,15 @@ const RegisterConsult = () => {
         cintura: parseFloat(values.cintura),
       },
     });
-    console.log(consultaData);
-
-    navigate('/registrarPlanoAlimentar')
+    navigate('/registrarRefeicoes')
   };
 
   if (isFetching) {
-    return <div>Loading...</div>;
+    return  (<div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+              <div className="spinner-border text-success" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>);
   }
 
   return (
@@ -167,8 +168,11 @@ const RegisterConsult = () => {
                 </div>
               </div>
             </div>
-            <div className="button">
-              <button type="submit" className="btn btn-secundary" disabled={isSubmitting}>
+            <div className="button-consult">
+              <button onClick={() => navigate('/dashboard')} className="btn btn-secundary" disabled={isSubmitting || isLoading}>
+                VOLTAR
+              </button>
+              <button type="submit" className="btn btn-secundary" disabled={isSubmitting || isLoading}>
                 SALVAR
               </button>
             </div>

@@ -3,8 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Validations } from '../../../core/utils/Validations';
 import { useAuth } from '../../../core/context/AuthProvider/useAuth';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './Login.scss';
+import { useState } from 'react';
+import Notification from '../../components/Notification/notification';
+import axios, { AxiosError } from 'axios';
+import { error, log } from 'console';
 
 interface ILogin {
   crn: string;
@@ -16,16 +20,25 @@ interface ILogin {
 const Login = () => {
   const navigate = useNavigate();
   const auth = useAuth()
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   async function handleLoginSubmit(values: { crn: string, senha: string }) {
-
-    await auth.authenticate(values.crn, values.senha).then((resp) => {
-      navigate("/dashboard")
-    }).catch((error) => {
-      console.log(error)
-    })
-
+    try {
+      const resp = await auth.authenticate(values.crn, values.senha);
+      navigate("/dashboard");
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        setErrorMessage(error.response?.data.message);
+      } else {
+        console.error("Ocorreu um erro inesperado");
+      }
+    }
+    
   }
+
+  const handleNotificationClose = () => {
+    setErrorMessage(null);
+  };
 
   const initialValues: ILogin = {
     crn: '',
@@ -34,15 +47,15 @@ const Login = () => {
 
   return (
     <div className='container-page-login'>
+      {errorMessage && <Notification message={errorMessage} type="error" onClose={handleNotificationClose} />}
       <div className="container-login">
+
         <Formik
           initialValues={initialValues}
           validateOnBlur={false}
           validateOnChange={false}
           validationSchema={Validations.SignupSchema}
           onSubmit={(values: ILogin, { setSubmitting }) => {
-            console.log(values);
-
             handleLoginSubmit(values)
             setSubmitting(false);
           }}
@@ -56,17 +69,19 @@ const Login = () => {
                   <h2 className="my-4">ACESSAR</h2>
                   <div className="form-label">
                     <label htmlFor="crn">CRN</label>
-                    <Field name="crn" type="text" className="form-control" />
+                    <Field name="crn" type="text" className="form-control" autoComplete="off" />
                     <ErrorMessage name="crn" component="div" className="text-danger" />
                   </div>
+
                   <div className="form-label">
                     <label htmlFor="senha">Senha</label>
-                    <Field name="senha" type="password" className="form-control" />
+                    <Field name="senha" type="password" className="form-control" autoComplete="off" />
                     <ErrorMessage name="senha" component="div" className="text-danger" />
                   </div>
                   <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
                     Enviar
                   </button>
+
                 </div>
               </Form>
             </div>

@@ -2,6 +2,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { fecthPacient } from '../../../core/services/pacients/pacientsService';
 import './styles.css';
+import { formatCPF } from '../../../core/utils/globalFunctions';
 
 
 const Clients = () => {
@@ -15,7 +16,12 @@ const Clients = () => {
 
   return (
     <>
-      {isLoading ? (<h1>carregando</h1>) : (
+      {isLoading ? (
+        <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+          <div className="spinner-border text-success" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>) : (
         <div className="page-container">
           <div className="content-container-table">
             <div className='title'>
@@ -23,7 +29,7 @@ const Clients = () => {
             </div>
             <div className='table'>
               <table className="table">
-                <thead className="custom-thead">
+                <thead className="custom-thead head-table">
                   <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Nome</th>
@@ -38,7 +44,7 @@ const Clients = () => {
                     <tr key={paciente.ID_paciente}>
                       <th scope="row">{paciente.ID_paciente}</th>
                       <td>{paciente.nome}</td>
-                      <td>{paciente.cpf}</td>
+                      <td>{formatCPF(paciente.cpf)}</td>
                       <td>{paciente.idade}</td>
                       <td>{paciente.numero_de_consultas}</td>
                       <td>{paciente.data_ultima_consulta || 'N/A'}</td>

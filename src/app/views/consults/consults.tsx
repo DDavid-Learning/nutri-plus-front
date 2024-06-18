@@ -23,30 +23,90 @@ const Consults: React.FC = () => {
         <html>
           <head>
             <title>Consulta ${id}</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+              }
+              h1, h2, h3 {
+                color: #333;
+              }
+              .header, .footer {
+                text-align: center;
+                margin-bottom: 20px;
+              }
+              .section {
+                margin-bottom: 20px;
+              }
+              table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+              }
+              table, th, td {
+                border: 1px solid #000;
+              }
+              th, td {
+                padding: 8px;
+                text-align: left;
+              }
+              th {
+                background-color: #f2f2f2;
+              }
+            </style>
           </head>
           <body>
-            <h1>Detalhes da Consulta</h1>
-            <p>ID: ${consultDetails.ID_consulta}</p>
-            <h2>Paciente</h2>
-            <p>Nome: ${consultDetails.paciente.nome}</p>
-            <p>Idade: ${consultDetails.paciente.idade}</p>
-            <p>CPF: ${consultDetails.paciente.cpf}</p>
-            <h2>Medidas</h2>
-            <p>Bíceps Esquerdo: ${consultDetails.medidas.biceps_esquerdo}</p>
-            <p>Bíceps Direito: ${consultDetails.medidas.biceps_direito}</p>
-            <p>Coxa Direita: ${consultDetails.medidas.coxa_direito}</p>
-            <p>Coxa Esquerda: ${consultDetails.medidas.coxa_esquerda}</p>
-            <p>Peitoral: ${consultDetails.medidas.peitoral}</p>
-            <p>Cintura: ${consultDetails.medidas.cintura}</p>
-            <h2>Plano Alimentar</h2>
-            <p>Meta Calórica: ${consultDetails.plano_alimentar.meta_calorica}</p>
-            <p>Objetivo: ${consultDetails.plano_alimentar.objetivo}</p>
-            <h3>Refeições</h3>
-            ${consultDetails.plano_alimentar.refeicoes.map(refeicao => `
-              <p>Alimento: ${refeicao.alimento}</p>
-              <p>Dia da Semana: ${refeicao.dia_da_semana}</p>
-              <p>Horário: ${refeicao.horario}</p>
-            `).join('')}
+            <div class="header">
+              <h1>NUTRI PLUS</h1>
+              <p>Saúde e bem estar</p>
+            </div>
+            <div class="section">
+              <h3>Nome do paciente: ${consultDetails.paciente.nome}</h2>
+              <h3>Data: ${consultDetails.data}</h2>
+            </div>
+            <div class="section">
+              <h2>Medidas da consulta:</h2>
+              <table>
+                <tr>
+                  <th>Bíceps Esquerdo</th>
+                  <th>Bíceps Direito</th>
+                  <th>Coxa Esquerda</th>
+                  <th>Coxa Direita</th>
+                  <th>Cintura</th>
+                  <th>Peitoral</th>
+                </tr>
+                <tr>
+                  <td>${consultDetails.medidas.biceps_esquerdo} cm</td>
+                  <td>${consultDetails.medidas.biceps_direito} cm</td>
+                  <td>${consultDetails.medidas.coxa_esquerda} cm</td>
+                  <td>${consultDetails.medidas.coxa_direito} cm</td>
+                  <td>${consultDetails.medidas.cintura} cm</td>
+                  <td>${consultDetails.medidas.peitoral} cm</td>
+                </tr>
+              </table>
+            </div>
+            <div class="section">
+              <h2>Refeições:</h2>
+              <table>
+                <tr>
+                  <th>Dia/Horário</th>
+                  <th>9:00</th>
+                  <th>12:00</th>
+                  <th>19:00</th>
+                </tr>
+                ${["Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira"].map(dia => `
+                  <tr>
+                    <th>${dia}</th>
+                    <td>${consultDetails.plano_alimentar.refeicoes.find(r => r.dia_da_semana === dia && r.horario === "9:00")?.alimento || ""}</td>
+                    <td>${consultDetails.plano_alimentar.refeicoes.find(r => r.dia_da_semana === dia && r.horario === "12:00")?.alimento || ""}</td>
+                    <td>${consultDetails.plano_alimentar.refeicoes.find(r => r.dia_da_semana === dia && r.horario === "19:00")?.alimento || ""}</td>
+                  </tr>
+                `).join('')}
+              </table>
+            </div>
+            <div class="footer">
+              <p>Saúde e bem estar/p>
+            </div>
           </body>
         </html>
       `;
